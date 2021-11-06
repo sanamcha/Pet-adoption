@@ -1,0 +1,47 @@
+
+{% extends 'base.html'  %}
+{% block title %}  {% endblock %}
+
+{% block content %}
+
+
+    <div class="container">
+        <h3> Name:{{ pet.name }}</h3>
+        <h3> Age:{{ pet.age}}</h3>
+        <h3> Species:{{ pet.species}}</h3>
+    
+    {% if pet.photo_url %}
+    
+    <img src="{{ pet.photo_url }}" >   
+    
+    {% endif %}
+    
+
+    <form method="POST" action="/{{pet.id}}">
+        
+        {{ form.hidden_tag() }}
+    
+        {% for field in form if field.widget.input_type != 'hidden'%}
+    
+    <div class='form-group'>
+        {{ field.label }}
+        {{ field }}
+    
+    <p>
+        {% if field.errors %}
+        {% for error in field.errors %}
+            <b class="text-danger">{{ error }}</b>
+        {% endfor %}
+        {% endif %}
+    </p>
+    
+    </div> 
+         {% endfor %} 
+      
+    <button class="btn btn-primary" type="submit">Update</button>
+    </form>
+
+    </div>
+
+    
+    {% endblock %}
